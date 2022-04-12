@@ -6,6 +6,11 @@
 </head>
 <body>
     <div>
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти">
+        </form>
+    </div>
+    <div>
         <form method="post">
             <input type="text" name="title" placeholder="Название продукта" />
             <input type="text" name="description" placeholder="Описание продукта" />
@@ -26,6 +31,6 @@
                 <span>{{price}}</span>
                 <i></i>
             </div>
-        {{/products}}
+    {{/products}}
 </body>
 </html>
