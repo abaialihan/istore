@@ -51,14 +51,14 @@ public class ProductController {
     }
 
     // вернет продукты по названию
-    @PostMapping("filter")
-    public String findByTitle(@RequestParam String filter,
+    @PostMapping("findByTitle")
+    public String findByTitle(@RequestParam String title,
                               Model model)
     {
         List<Product> products;
 
-        if(filter != null && !filter.isEmpty()) {
-            products = productService.getListByTitle(filter);
+        if(title != null && !title.isEmpty()) {
+            products = productService.getListByTitle(title);
         }else {
             products = productService.getListAllProduct();
         }
