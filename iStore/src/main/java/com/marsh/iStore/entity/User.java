@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -32,13 +32,10 @@ public class User extends BaseEntity{
     @Column(name = "avatar")
     private String avatar;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id",
-                    referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id",
-                    referencedColumnName = "id")})
-    private List<Role> roles;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public User() {
     }
@@ -50,7 +47,7 @@ public class User extends BaseEntity{
                 String email,
                 Date date_of_birth,
                 String avatar,
-                List<Role> roles)
+                Set<Role> roles)
     {
         this.login = login;
         this.password = password;

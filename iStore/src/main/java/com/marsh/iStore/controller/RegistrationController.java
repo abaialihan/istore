@@ -30,7 +30,7 @@ public class RegistrationController {
             model.addAttribute("userExists", "User Exists");
             return "registration";
         }
-
+        user.setRoles(Collections.singleton(Role.USER));
         userService.save(user);
 
         return "redirect:/login";
