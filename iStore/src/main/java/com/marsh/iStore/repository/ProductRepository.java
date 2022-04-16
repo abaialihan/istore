@@ -1,6 +1,6 @@
 package com.marsh.iStore.repository;
 
-import com.marsh.iStore.entity.Product;
+import com.marsh.iStore.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

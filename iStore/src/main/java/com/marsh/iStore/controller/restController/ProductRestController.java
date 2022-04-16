@@ -1,6 +1,6 @@
 package com.marsh.iStore.controller.restController;
 
-import com.marsh.iStore.entity.Product;
+import com.marsh.iStore.model.Product;
 import com.marsh.iStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

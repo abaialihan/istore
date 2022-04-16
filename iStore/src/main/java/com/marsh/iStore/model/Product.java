@@ -1,4 +1,4 @@
-package com.marsh.iStore.entity;
+package com.marsh.iStore.model;
 
 import lombok.Data;
 

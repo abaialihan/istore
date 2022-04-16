@@ -1,6 +1,6 @@
 package com.marsh.iStore.controller;
 
-import com.marsh.iStore.entity.Product;
+import com.marsh.iStore.model.Product;
 import com.marsh.iStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

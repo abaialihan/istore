@@ -1,7 +1,7 @@
 package com.marsh.iStore.controller;
 
-import com.marsh.iStore.entity.Role;
-import com.marsh.iStore.entity.User;
+import com.marsh.iStore.model.Role;
+import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,12 +24,13 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String adduser(User user, Model model){
-        User userFromDb = userService.getUserByLogin(user.getLogin());
+        User userFromDb = userService.getUserByUsername(user.getUsername());
 
         if(userFromDb != null){
             model.addAttribute("userExists", "User Exists");
             return "registration";
         }
+        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userService.save(user);
 

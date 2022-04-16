@@ -8,8 +8,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -28,33 +33,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                    .csrf().disable()
+                .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/login", "/registration").permitAll()
-                    .antMatchers("/login*").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/", true)
-                .and()
-                    .logout().permitAll();
+                .antMatchers("/","/login", "/registration").permitAll()
+                .antMatchers("/login*").permitAll()
+                .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                    .and()
+                .logout().permitAll();
     }
 
     @Override
-    protected void configure (final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password(getPasswordEncoder().encode("user1")).roles("USER")
-                .and()
-                .withUser("user2").password(getPasswordEncoder().encode("user2")).roles("USER");
+    protected void configure (AuthenticationManagerBuilder auth) throws Exception {
 
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(getPasswordEncoder())
-//                .usersByUsernameQuery("select " +
-//                        "login, password from users where login = ?")
-//                .authoritiesByUsernameQuery("select u.login, r.roles " +
-//                        "from users u inner join roles r " +
-//                        "on u.id = r.user_id where u.login = ?");
+        auth
+                .jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT u.username, r.roles FROM users u INNER JOIN roles r ON u.id = r.user_id WHERE u.username=?");
     }
+
 }
