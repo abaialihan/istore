@@ -14,6 +14,11 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    public UserRestController(UserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping("api/v1/users")
     public List<User> getAllUsers(){
         return userService.getAllListUser();
