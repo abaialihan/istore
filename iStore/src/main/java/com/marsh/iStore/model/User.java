@@ -6,15 +6,21 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users",  indexes ={ @Index(name = "IDX_MYIDX1", columnList = "username,password") })
+@Table(name = "users",  indexes ={ @Index(name = "IDX_MYIDX1", columnList = "login,password") })
 @Data
 public class User extends BaseEntity{
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "login")
+    private String login;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
 
     @Column(name = "active")
     private boolean active;
@@ -27,10 +33,11 @@ public class User extends BaseEntity{
     public User() {
     }
 
-    public User(Integer id, String username, String password, boolean active, Set<Role> roles) {
-        this.id = id;
-        this.username = username;
+    public User(String login, String password, String firstname, String lastname, boolean active, Set<Role> roles) {
+        this.login = login;
         this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.active = active;
         this.roles = roles;
     }

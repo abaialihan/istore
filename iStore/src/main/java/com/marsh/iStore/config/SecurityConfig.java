@@ -35,12 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/login", "/registration").permitAll()
-                .antMatchers("/login*").permitAll()
+                .antMatchers("/","/auth", "/registration").permitAll()
+                .antMatchers("/auth*").permitAll()
                 .anyRequest().authenticated()
                     .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/auth")
                 .defaultSuccessUrl("/", true)
                     .and()
                 .logout().permitAll();
@@ -53,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username=?")
-                .authoritiesByUsernameQuery("SELECT u.username, r.roles FROM users u INNER JOIN roles r ON u.id = r.user_id WHERE u.username=?");
+                .usersByUsernameQuery("SELECT login, password, active FROM users WHERE login=?")
+                .authoritiesByUsernameQuery("SELECT u.login, r.roles FROM users u INNER JOIN roles r ON u.id = r.user_id WHERE u.login=?");
     }
 
 }
