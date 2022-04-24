@@ -1,8 +1,10 @@
 package com.marsh.iStore.controller;
 
 import com.marsh.iStore.model.Product;
+import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,7 @@ public class ProductController {
     // добовляем продукт
     @PostMapping
     public String addProduct(
+            @AuthenticationPrincipal User user,
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String price,
@@ -41,7 +44,7 @@ public class ProductController {
             Model model)
     {
         // сохраняем новый продукт
-        Product product = new Product(title, description, price, image);
+        Product product = new Product(title, description, price, image, user);
         productService.save(product);
 
         // вытягиваем все продукты из репозитория и передаем в модель
@@ -62,7 +65,7 @@ public class ProductController {
         }else {
             products = productService.getListAllProduct();
         }
-        model.addAttribute(products);
+        model.addAttribute("products", products);
 
         return "mainPage";
     }

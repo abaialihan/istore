@@ -32,7 +32,7 @@ public class ProductRestController {
         // если нет элемента по id
         // ловим ошибку и выдаем статус NOTFOUND
         try {
-            Product product = productService.get(id);
+            Product product = productService.getProductById(id);
             return new ResponseEntity<Product>(product, HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
@@ -49,7 +49,7 @@ public class ProductRestController {
                                     @PathVariable Integer id)
     {
         try {
-            Product gotProduct = productService.get(id);
+            Product gotProduct = productService.getProductById(id);
             productService.save(product);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (NoSuchElementException e){

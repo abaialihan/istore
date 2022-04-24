@@ -1,5 +1,6 @@
 package com.marsh.iStore.config;
 
+import com.marsh.iStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private DataSource dataSource;
+    private UserService userService;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -45,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure (AuthenticationManagerBuilder auth) throws Exception {
 
         auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("SELECT login, password, active FROM users WHERE login=?")
-                .authoritiesByUsernameQuery("SELECT u.login, r.roles FROM users u INNER JOIN roles r ON u.id = r.user_id WHERE u.login=?");
+                .userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+
+
+//                .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username=?")
+//                .authoritiesByUsernameQuery("SELECT u.username, r.roles FROM users u INNER JOIN roles r ON u.id = r.user_id WHERE u.username=?");
     }
 
 }

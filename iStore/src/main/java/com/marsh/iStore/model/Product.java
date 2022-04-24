@@ -2,9 +2,7 @@ package com.marsh.iStore.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -23,13 +21,22 @@ public class Product extends BaseEntity {
     @Column(name = "image")
     private String image;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user_id;
+
     public Product() {
     }
 
-    public Product(String title, String description, String price, String image) {
+    public Product(String title, String description, String price, String image, User user) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.image = image;
+        this.user_id = user;
+    }
+
+    public String getUserName(){
+        return user_id != null ? user_id.getUsername() : "none" ;
     }
 }

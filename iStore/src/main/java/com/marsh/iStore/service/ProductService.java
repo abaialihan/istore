@@ -24,7 +24,7 @@ public class ProductService {
     }
 
     // по id
-    public Product get(Integer id){
+    public Product getProductById(Integer id){
         return productRepository.findById(id).orElse(null);
     }
 
