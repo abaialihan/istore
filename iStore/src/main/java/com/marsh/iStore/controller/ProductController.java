@@ -26,9 +26,19 @@ public class ProductController {
     // вернет нам корневую страницу
     // вернет весь список продукта
     @GetMapping
-    public String getAllProducts(Model model){
+    public String getAllProducts(
+            @RequestParam(required = false, defaultValue = "") String titleFilter,
+            Model model
+    ){
         List<Product> products = productService.getListAllProduct();
+
+        if(titleFilter != null && !titleFilter.isEmpty())
+            products = productService.getListByTitle(titleFilter);
+        else
+            products = productService.getListAllProduct();
+
         model.addAttribute("products", products);
+        model.addAttribute("titleFilter", titleFilter);
 
         return "mainPage";
     }
@@ -53,20 +63,4 @@ public class ProductController {
         return "mainPage";
     }
 
-    // вернет продукты по названию
-    @PostMapping("findByTitle")
-    public String findByTitle(@RequestParam String title,
-                              Model model)
-    {
-        List<Product> products;
-
-        if(title != null && !title.isEmpty()) {
-            products = productService.getListByTitle(title);
-        }else {
-            products = productService.getListAllProduct();
-        }
-        model.addAttribute("products", products);
-
-        return "mainPage";
-    }
 }
