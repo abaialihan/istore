@@ -4,6 +4,7 @@ import com.marsh.iStore.model.Role;
 import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("/users")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;

@@ -18,8 +18,11 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {

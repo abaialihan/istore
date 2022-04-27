@@ -1,16 +1,14 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>iStore</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
+<#import "sample/common.ftlh" as c>
+<#import "sample/auth.ftlh" as l>
+
+<@c.page>
+
+
     <div>
-        <form action="/logout" method="post">
-            <input type="submit" value="Выйти">
-        </form>
+    <@l.logout />
         <span><a href="/users">Список пользователей</a></span>
     </div>
+
     <div>
         <form method="post">
             <input type="text" name="title" placeholder="Название продукта" />
@@ -19,19 +17,22 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
+
     <form method="get" action="/">
         <input type="text" name="title" />
         <button type="submit">Найти</button>
     </form>
+
     <div>Список продуктов</div>
-    {{#products}}
+    <#list products as product>
             <div>
-                <b>{{id}}</b>
-                <span>{{title}}</span>
-                <span>{{description}}</span>
-                <span>{{price}}</span>
-                <i>{{userName}}</i>
+                <b>${product.id}</b>
+                <span>${product.title}</span>
+                <span>${product.description}</span>
+                <span>${product.price}</span>
+                <i>${product.userName}</i>
+                <#else>
+                No message
             </div>
-    {{/products}}
-</body>
-</html>
+    </#list>
+</@c.page>
