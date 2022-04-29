@@ -1,6 +1,7 @@
 package com.marsh.iStore.model;
 
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
@@ -21,7 +22,7 @@ public class Product extends BaseEntity {
     @Column(name = "image")
     private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user_id;
 
