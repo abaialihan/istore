@@ -16,9 +16,8 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService){
         this.productService = productService;
     }
@@ -49,7 +48,7 @@ public class ProductController {
             @AuthenticationPrincipal User user,
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam String price,
+            @RequestParam Double price,
             @RequestParam(defaultValue = "no image") String image,
             Model model)
     {

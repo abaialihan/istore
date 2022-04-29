@@ -6,7 +6,7 @@
 
     <div>
     <@l.logout />
-        <span><a href="/users">Список пользователей</a></span>
+        <span><a href="/admin/users">Список пользователей</a></span>
     </div>
 
     <div>
@@ -19,7 +19,7 @@
     </div>
 
     <form method="get" action="/">
-        <input type="text" name="title" />
+        <input type="text" name="titleFilter"/>
         <button type="submit">Найти</button>
     </form>
 

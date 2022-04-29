@@ -3,7 +3,7 @@
 <@c.page>
         Изменить пользователя
 
-<form action="/users" method="post">
+<form action="/admin/users" method="post">
     <input type="text" name="username" value="${user.username}"/>
     <#list roles as role>
         <div>

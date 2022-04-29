@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
@@ -63,6 +63,6 @@ public class UserController {
         }
 
         userService.save(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

@@ -16,7 +16,7 @@ public class Product extends BaseEntity {
     private String description;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @Column(name = "image")
     private String image;
@@ -28,7 +28,7 @@ public class Product extends BaseEntity {
     public Product() {
     }
 
-    public Product(String title, String description, String price, String image, User user) {
+    public Product(String title, String description, Double price, String image, User user) {
         this.title = title;
         this.description = description;
         this.price = price;
