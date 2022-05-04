@@ -3,7 +3,6 @@ package com.marsh.iStore.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -20,27 +19,24 @@ public class Product extends BaseEntity {
     private Double price;
 
     @Column(name = "image")
-    private String image;
+    private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
-    private User userId;
-
-    @ManyToMany
-    private List<Order> order;
+    private User user;
 
     public Product() {
     }
 
-    public Product(String title, String description, Double price, String image, User user) {
+    public Product(String title, String description, Double price, String imageUrl, User user) {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.image = image;
-        this.userId = user;
+        this.imageUrl = imageUrl;
+        this.user = user;
     }
 
     public String getUserName(){
-        return userId != null ? userId.getUsername() : "none" ;
+        return user != null ? user.getUsername() : "none" ;
     }
 }

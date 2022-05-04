@@ -8,7 +8,6 @@ public class OrderDto {
     private Integer quantity;
     private Integer orderId;
     private Integer productId;
-
     private Integer userId;
 
     public OrderDto() {
