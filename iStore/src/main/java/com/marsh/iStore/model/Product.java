@@ -1,9 +1,9 @@
 package com.marsh.iStore.model;
 
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -24,7 +24,10 @@ public class Product extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
+
+    @ManyToMany
+    private List<Order> order;
 
     public Product() {
     }
@@ -34,10 +37,10 @@ public class Product extends BaseEntity {
         this.description = description;
         this.price = price;
         this.image = image;
-        this.user_id = user;
+        this.userId = user;
     }
 
     public String getUserName(){
-        return user_id != null ? user_id.getUsername() : "none" ;
+        return userId != null ? userId.getUsername() : "none" ;
     }
 }

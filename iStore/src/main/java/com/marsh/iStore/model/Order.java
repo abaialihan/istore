@@ -1,33 +1,41 @@
 package com.marsh.iStore.model;
 
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name="orders")
 @Data
 public class Order extends BaseEntity{
 
-    @Column(name = "total_price")
-    private Double total_price;
+    @Column(name = "user_id")
+    private Integer userId;
+    @Column(name = "product_id")
+    private Integer productId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private List<OrderItem> order_items;
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @Column(name = "price")
+    private  Integer price;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user_id;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+
+    @OneToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
 
     public Order() {
     }
 
-    public Order(Double total_price, List<OrderItem> order_items, User user_id) {
-        this.total_price = total_price;
-        this.order_items = order_items;
-        this.user_id = user_id;
+    public Order(Integer userId, Integer productId, Integer quantity, Integer price){
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.price = price;
     }
+
 }
