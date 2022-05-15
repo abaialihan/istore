@@ -1,4 +1,5 @@
-<#import "sample/common.ftlh" as c>
+<#import "pattern/common.ftlh" as c>
+
 <@c.page>
     Заказы
 
@@ -7,6 +8,8 @@
         <tr>
             <th>Имя</th>
             <th>Товар</th>
+            <th>Цена</th>
+            <th>Колличество</th>
         </tr>
         </thead>
         <tbody>
@@ -14,6 +17,8 @@
             <tr>
                 <td>${order.user.username}</td>
                 <td>${order.product.title}</td>
+                <td>${order.product.price}</td>
+                <td>${order.product.quantity}</td>
             </tr>
         </#list>
         </tbody>

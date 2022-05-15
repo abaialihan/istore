@@ -1,4 +1,4 @@
-<#import "sample/common.ftlh" as c>
+<#import "pattern/common.ftlh" as c>
 
 <@c.page>
         Пользователи

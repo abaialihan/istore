@@ -1,5 +1,5 @@
-<#import "sample/common.ftlh" as c>
-<#import "sample/auth.ftlh" as l>
+<#import "pattern/common.ftlh" as c>
+<#import "pattern/auth.ftlh" as l>
 
 <@c.page>
 
@@ -25,13 +25,16 @@
 
     <div>Список продуктов</div>
     <#list products as product>
-            <div>
-                <b>${product.id}</b>
-                <span>${product.title}</span>
-                <span>${product.description}</span>
-                <span>${product.price}</span>
-                <i>${product.userName}</i>
-                <#else>
+        <div>
+        <form method="post" action="/order/addToCart/${product.id}">
+            <b>${product.id}</b>
+            <span>${product.title}</span>
+            <span>${product.description}</span>
+            <span>${product.price}</span>
+            <i>${product.userName}</i>
+            <button type="submit">Заказать</button>
+        </form>
+    <#else>
                 No message
             </div>
     </#list>

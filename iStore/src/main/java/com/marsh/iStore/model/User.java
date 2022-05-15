@@ -1,12 +1,16 @@
 package com.marsh.iStore.model;
 
+import com.marsh.iStore.enums.Role;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 // UserDetails - это интерфейс является основным интерфейсом
@@ -16,8 +20,21 @@ import java.util.Set;
 // будет инкапсулирована в объект аутентификации позже.
 @Entity
 @Table(name = "users",  indexes ={ @Index(name = "IDX_MYIDX1", columnList = "username,password") })
+@EntityListeners(AuditingEntityListener.class)
 @Data
-public class User extends BaseEntity implements UserDetails {
+public class User implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date created_date;
+
+    @LastModifiedDate
+    @Column(name = "updated_date")
+    private Date updated_date;
 
     @Column(name = "username")
     private String username;
@@ -39,8 +56,7 @@ public class User extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String username, String password, String firstname, String lastname, boolean active, Set<Role> roles) {
         this.username = username;

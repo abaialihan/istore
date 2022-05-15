@@ -7,6 +7,7 @@ import javax.persistence.Column;
 @Data
 public class ProductDto {
 
+    private Integer id;
     private String title;
     private String description;
     private Double price;
@@ -15,7 +16,8 @@ public class ProductDto {
     public ProductDto() {
     }
 
-    public ProductDto(String title, String description, Double price, String imageUrl) {
+    public ProductDto(Integer id, String title, String description, Double price, String imageUrl) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;

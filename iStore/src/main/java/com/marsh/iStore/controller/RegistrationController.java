@@ -1,6 +1,6 @@
 package com.marsh.iStore.controller;
 
-import com.marsh.iStore.model.Role;
+import com.marsh.iStore.enums.Role;
 import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

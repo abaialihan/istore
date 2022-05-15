@@ -1,9 +1,8 @@
 package com.marsh.iStore.dto;
 
-import com.marsh.iStore.model.Role;
+import com.marsh.iStore.enums.Role;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.util.Set;
 
 @Data

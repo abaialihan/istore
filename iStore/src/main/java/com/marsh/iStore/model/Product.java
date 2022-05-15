@@ -1,13 +1,29 @@
 package com.marsh.iStore.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
+@EntityListeners(AuditingEntityListener.class)
 @Data
-public class Product extends BaseEntity {
+public class Product{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date created_date;
+
+    @LastModifiedDate
+    @Column(name = "updated_date")
+    private Date updated_date;
 
     @Column(name = "title")
     private String title;

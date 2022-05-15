@@ -1,16 +1,31 @@
 package com.marsh.iStore.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="orders")
+@EntityListeners(AuditingEntityListener.class)
 @Data
-public class Order extends BaseEntity{
+public class Order{
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date created_date;
+
+    @LastModifiedDate
+    @Column(name = "updated_date")
+    private Date updated_date;
+
     @Column(name = "product_id")
     private Integer productId;
 
@@ -18,24 +33,23 @@ public class Order extends BaseEntity{
     private Integer quantity;
 
     @Column(name = "price")
-    private  Integer price;
+    private Double price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
 
     public Order() {
     }
 
-    public Order(Integer userId, Integer productId, Integer quantity, Integer price){
-        this.userId = userId;
-        this.productId = productId;
+    public Order(Integer quantity, User user, Integer productId){
         this.quantity = quantity;
-        this.price = price;
+        this.user = user;
+        this.productId = productId;
     }
 
 }

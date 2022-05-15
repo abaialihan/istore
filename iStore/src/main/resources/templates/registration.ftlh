@@ -1,5 +1,5 @@
-<#import "sample/common.ftlh" as c>
-<#import "sample/auth.ftlh" as l>
+<#import "pattern/common.ftlh" as c>
+<#import "pattern/auth.ftlh" as l>
 
 <@c.page>
         Add new user
