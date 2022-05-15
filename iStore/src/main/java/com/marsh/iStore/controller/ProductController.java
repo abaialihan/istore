@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.IdClass;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -72,14 +69,14 @@ public class ProductController {
     }
 
     // Заказываем продукт
-    @PostMapping("/addtocart/{productId}")
+    @PostMapping("/addtocart/{product}")
     public String addToCart(@AuthenticationPrincipal User userId,
-                            @PathVariable Product productId,
+                            @PathVariable Product product,
                             Model model
     )
     {
         if(model.getAttribute("orders") == null){
-            Order orders = new Order(1,  userId, productId.getId());
+            Order orders = new Order(1,  userId, product.getId(), product.getPrice());
             orderService.save(orders);
             model.addAttribute("orders", orders);
         }else{
@@ -90,5 +87,4 @@ public class ProductController {
 
         return "redirect:/order";
     }
-
 }

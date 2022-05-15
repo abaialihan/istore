@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -44,4 +45,13 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
+
+//    public String cheekUserFromDb(User user, Model model){
+//        User userFromDb = this.getUserByUsername(user.getUsername());
+//
+//        if(userFromDb != null){
+//            model.addAttribute("userExists", "Login занят");
+//            return "registration";
+//        }
+//    }
 }

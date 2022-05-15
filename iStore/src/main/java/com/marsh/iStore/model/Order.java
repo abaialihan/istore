@@ -46,10 +46,11 @@ public class Order{
     public Order() {
     }
 
-    public Order(Integer quantity, User user, Integer productId){
+    public Order(Integer quantity, User user, Integer productId, Double price){
         this.quantity = quantity;
         this.user = user;
         this.productId = productId;
+        this.price = price;
     }
 
 }

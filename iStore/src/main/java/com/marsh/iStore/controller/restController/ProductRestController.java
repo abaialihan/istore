@@ -1,6 +1,7 @@
 package com.marsh.iStore.controller.restController;
 
 import com.marsh.iStore.model.Product;
+import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@RequestMapping("api/v1/products")
 public class ProductRestController {
 
     private ProductService productService;
@@ -20,12 +22,12 @@ public class ProductRestController {
         this.productService = productService;
     }
 
-    @GetMapping("api/v1/products")
+    @GetMapping
     public List<Product> getAllProduct(){
         return productService.getListAllProduct();
     }
 
-    @GetMapping("api/v1/products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@PathVariable Integer id){
 
         // обрабатываем запрос по id
@@ -39,25 +41,42 @@ public class ProductRestController {
         }
     }
 
-    @PostMapping("api/v1/products")
-    public void addProduct(@RequestBody Product product){
+    @PostMapping
+    public ResponseEntity<Product> addProduct(
+            @RequestParam User user,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam Double price,
+            @RequestParam(defaultValue = "no image") String image
+    )
+    {
+        Product product = new Product(title, description, price, image, user);
         productService.save(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PutMapping("api/v1/products/{id}")
-    public ResponseEntity<?> update(@RequestBody Product product,
-                                    @PathVariable Integer id)
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam Double price,
+            @PathVariable Integer id
+    )
     {
         try {
-            Product gotProduct = productService.getProductById(id);
+            Product product = productService.getProductById(id);
+            product.setTitle(title);
+            product.setDescription(description);
+            product.setPrice(price);
             productService.save(product);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (NoSuchElementException e){
+
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("api/v1/products/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
         productService.delete(id);
     }

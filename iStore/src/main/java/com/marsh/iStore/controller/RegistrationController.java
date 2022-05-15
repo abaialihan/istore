@@ -27,7 +27,7 @@ public class RegistrationController {
         User userFromDb = userService.getUserByUsername(user.getUsername());
 
         if(userFromDb != null){
-            model.addAttribute("userExists", "User Exists");
+            model.addAttribute("userExists", "Login занят");
             return "registration";
         }
         user.setActive(true);
