@@ -14,12 +14,16 @@
         </thead>
         <tbody>
         <#list orders as order>
+            <div>
             <tr>
                 <td>${order.user.username}</td>
                 <td>${order.product.title}</td>
                 <td>${order.product.price}</td>
-                <td>${order.product.quantity}</td>
+                <td>${order.quantity}</td>
             </tr>
+        <#else>
+            Нет заказов
+            </div>
         </#list>
         </tbody>
     </table>

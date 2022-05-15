@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,23 +23,12 @@ public class OrderController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/addToCart/{productId}")
-    public String addToCart(@AuthenticationPrincipal User userId,
-            @PathVariable Product productId,
-            Model model
-    )
-    {
-        if(model.getAttribute("orders") == null){
-            Order orders = new Order(1,  userId, productId.getId());
-            orderService.save(orders);
-            model.addAttribute("orders", orders);
-        }else{
-            Order orders = (Order) model.getAttribute("/order");
-            orderService.save(orders);
-            model.addAttribute("orders", orders);
-        }
+    @GetMapping
+    public String getAllOrders(Model model){
+        List<Order> orders = orderService.getAllOrder();
+        model.addAttribute("orders", orders);
 
-        return "redirect:/orders";
+        return "ordersPage";
     }
 
     private int exists(Integer id, Order orders) {

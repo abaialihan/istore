@@ -26,7 +26,7 @@
     <div>Список продуктов</div>
     <#list products as product>
         <div>
-        <form method="post" action="/order/addToCart/${product.id}">
+        <form method="post" action="/addtocart/${product.id}">
             <b>${product.id}</b>
             <span>${product.title}</span>
             <span>${product.description}</span>
@@ -35,7 +35,10 @@
             <button type="submit">Заказать</button>
         </form>
     <#else>
-                No message
-            </div>
+        Нет продуктов
+        </div>
     </#list>
+    <div>
+        <span><a href="/order">Заказы</a></span>
+    </div>
 </@c.page>

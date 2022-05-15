@@ -71,4 +71,24 @@ public class ProductController {
         return "mainPage";
     }
 
+    // Заказываем продукт
+    @PostMapping("/addtocart/{productId}")
+    public String addToCart(@AuthenticationPrincipal User userId,
+                            @PathVariable Product productId,
+                            Model model
+    )
+    {
+        if(model.getAttribute("orders") == null){
+            Order orders = new Order(1,  userId, productId.getId());
+            orderService.save(orders);
+            model.addAttribute("orders", orders);
+        }else{
+            Order orders = (Order) model.getAttribute("/order");
+            orderService.save(orders);
+            model.addAttribute("orders", orders);
+        }
+
+        return "redirect:/order";
+    }
+
 }
