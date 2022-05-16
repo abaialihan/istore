@@ -10,10 +10,11 @@
     </div>
 
     <div>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="Название продукта" />
             <input type="text" name="description" placeholder="Описание продукта" />
             <input type="text" name="price" placeholder="Цена" />
+            <input type="file" name="file">
             <button type="submit">Добавить</button>
         </form>
     </div>
@@ -32,6 +33,11 @@
             <span>${product.description}</span>
             <span>${product.price}</span>
             <i>${product.userName}</i>
+            <div>
+                <#if product.filename??>
+                    <img src="/img/${product.filename}">
+                </#if>
+            </div>
             <button type="submit">Заказать</button>
         </form>
     <#else>

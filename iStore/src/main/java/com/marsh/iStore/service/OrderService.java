@@ -24,4 +24,6 @@ public class OrderService {
     public Order getOrderById(Integer id){
         return orderRepository.findById(id).orElse(null);
     }
+
+    public void delete(Integer id){orderRepository.deleteById(id);}
 }

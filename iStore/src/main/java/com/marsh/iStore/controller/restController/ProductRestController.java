@@ -77,7 +77,8 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<?> delete(@PathVariable Integer id){
         productService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
