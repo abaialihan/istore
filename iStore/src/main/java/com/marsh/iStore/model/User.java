@@ -1,6 +1,6 @@
 package com.marsh.iStore.model;
 
-import com.marsh.iStore.enums.Role;
+import com.marsh.iStore.model.enums.Role;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

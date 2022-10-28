@@ -2,6 +2,7 @@ package com.marsh.iStore.service;
 
 import com.marsh.iStore.model.User;
 import com.marsh.iStore.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +14,10 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public List<User> getAllListUser(){
         return userRepository.findAll();

@@ -2,16 +2,17 @@ package com.marsh.iStore.service;
 
 import com.marsh.iStore.model.Order;
 import com.marsh.iStore.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public void save(Order order){
         orderRepository.save(order);

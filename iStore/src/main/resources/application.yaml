@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/iStore
+    username: postgres
+    password: admin
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+
+upload:
+  path: C:/Users/a_alihan/Pictures/istore
+

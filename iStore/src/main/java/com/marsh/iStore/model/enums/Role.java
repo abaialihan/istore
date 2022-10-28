@@ -1,4 +1,4 @@
-package com.marsh.iStore.enums;
+package com.marsh.iStore.model.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

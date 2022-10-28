@@ -1,4 +1,4 @@
-package com.marsh.iStore.controller.restController;
+package com.marsh.iStore.controller;
 
 import com.marsh.iStore.model.User;
 import com.marsh.iStore.service.UserService;

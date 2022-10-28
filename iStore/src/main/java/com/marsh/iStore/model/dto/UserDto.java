@@ -1,6 +1,6 @@
-package com.marsh.iStore.dto;
+package com.marsh.iStore.model.dto;
 
-import com.marsh.iStore.enums.Role;
+import com.marsh.iStore.model.enums.Role;
 import lombok.Data;
 
 import java.util.Set;
